@@ -55,6 +55,32 @@ class RoomsController extends AbstractController
     public function show(Room $room)
     {
         return $this->render('rooms/show.html.twig', compact('room'));
+    }
+
+    /**
+     * @Route("/rooms/{id<[0-9]+>}/edit", name="app_rooms_edit", methods="GET|PUT")
+     */
+    public function edit(Room $room, EntityManagerInterface $em, Request $request)
+    {
+        $form = $this->createForm(RoomType::class, $room, [
+            'method' => 'PUT'
+        ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+            $this->addFlash(
+                'success','Room was successfully updated');
+
+            return $this->redirectToRoute('app_rooms_show', ['id' => $room->getId()]);
+        }
+
+        return $this->render('rooms/edit.html.twig', [
+            'room' => $room,
+            'form' => $form->createView()
+        ]);
 
     }
 }

@@ -6,7 +6,7 @@
     <h1>Name : {{ room.name }}</h1>
 
     <p>
-        <a href="">Edit</a>
+        <a href="{{ path('app_rooms_edit', {'id': room.id}) }}">Edit</a>
         <a href="{{ path('app_rooms_index') }}">Back</a>
     </p>
 
