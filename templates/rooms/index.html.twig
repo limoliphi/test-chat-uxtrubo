@@ -3,7 +3,7 @@
 {% block title 'Rooms' %}
 
 {% block body %}
-    <h1>{{ rooms|length }} Rooms</h1>
+    <h1>{{ pluralize(rooms|length, 'Room') }}</h1>
 
     {% if rooms is not empty %}
     <table>
