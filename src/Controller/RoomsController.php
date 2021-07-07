@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Room;
 use App\Form\RoomType;
 use App\Repository\RoomRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,14 +26,24 @@ class RoomsController extends AbstractController
     /**
      * @Route("/rooms/new", name="app_rooms_new", methods={"GET", "POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, EntityManagerInterface $em): Response
     {
-        $form = $this->createForm(RoomType::class);
+        $room = new Room();
+        $form = $this->createForm(RoomType::class, $room);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dd('cool');
+
+            $em->persist($room);
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                sprintf('Room %s was successfully created'. $room->getName())
+            );
+
+            return $this->redirectToRoute('app_rooms_index');
         }
 
         return $this->render('rooms/new.html.twig', [
