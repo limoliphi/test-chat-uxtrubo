@@ -3,27 +3,26 @@
 {% block title 'Rooms' %}
 
 {% block body %}
-    <h1>Rooms</h1>
+    <h1>{{ rooms|length }} Rooms</h1>
 
     <table>
         <thead>
             <tr>
                 <th>Name</th>
+                <th></th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
+            {% for room in rooms %}
             <tr>
-                <td>Laravel</td>
+                <td>{{ room.name }}</td>
                 <td><a href="">Show</a> </td>
                 <td><a href="">Edit</a> </td>
                 <td><a href="">Delete</a> </td>
             </tr>
-            <tr>
-                <td>Symfony</td>
-                <td><a href="">Show</a> </td>
-                <td><a href="">Edit</a> </td>
-                <td><a href="">Delete</a> </td>
-            </tr>
+            {% endfor %}
         </tbody>
     </table>
 
