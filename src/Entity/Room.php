@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\RoomRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=RoomRepository::class)
@@ -20,6 +21,8 @@ class Room
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Sorry, name can't be blank")
+     * @Assert\Length(min=3, minMessage="Name is too short !")
      */
     private $name;
 
