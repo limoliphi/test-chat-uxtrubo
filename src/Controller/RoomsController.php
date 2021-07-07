@@ -13,8 +13,6 @@ class RoomsController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('rooms/index.html.twig', [
-            'controller_name' => 'RoomsController',
-        ]);
+        return $this->render('rooms/index.html.twig');
     }
 }
