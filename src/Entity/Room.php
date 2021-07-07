@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=RoomRepository::class)
  * @ORM\Table(name="rooms")
+ * @ORM\HasLifecycleCallbacks
  */
 class Room
 {
@@ -75,5 +76,18 @@ class Room
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updateTimestamps(): void
+    {
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new \DateTimeImmutable);
+        }
+
+        $this->setUpdatedAt(new \DateTimeImmutable);
     }
 }

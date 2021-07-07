@@ -28,7 +28,7 @@ class RoomsController extends AbstractController
      */
     public function new(Request $request, EntityManagerInterface $em): Response
     {
-        $room = new Room();
+        $room = new Room;
         $form = $this->createForm(RoomType::class, $room);
 
         $form->handleRequest($request);
@@ -39,9 +39,7 @@ class RoomsController extends AbstractController
             $em->flush();
 
             $this->addFlash(
-                'success',
-                sprintf('Room %s was successfully created'. $room->getName())
-            );
+                'success','Room was successfully created');
 
             return $this->redirectToRoute('app_rooms_index');
         }
