@@ -1,0 +1,16 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title 'Room #' ~ room.id %}
+
+{% block body %}
+    <h1>Name : {{ room.name }}</h1>
+
+    <p>
+        <a href="">Edit</a>
+        <a href="{{ path('app_rooms_index') }}">Back</a>
+    </p>
+
+    <p>
+        <a href="">New message</a>
+    </p>
+{% endblock %}

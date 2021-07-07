@@ -41,11 +41,20 @@ class RoomsController extends AbstractController
             $this->addFlash(
                 'success','Room was successfully created');
 
-            return $this->redirectToRoute('app_rooms_index');
+            return $this->redirectToRoute('app_rooms_show', ['id' => $room->getId()]);
         }
 
         return $this->render('rooms/new.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/rooms/{id<[0-9]+>}", name="app_rooms_show", methods="GET")
+     */
+    public function show(Room $room)
+    {
+        return $this->render('rooms/show.html.twig', compact('room'));
+
     }
 }

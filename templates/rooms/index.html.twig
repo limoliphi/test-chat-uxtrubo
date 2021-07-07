@@ -19,7 +19,7 @@
             {% for room in rooms %}
             <tr>
                 <td>{{ room.name }}</td>
-                <td><a href="">Show</a> </td>
+                <td><a href="{{ path('app_rooms_show', {'id': room.id}) }}">Show</a> </td>
                 <td><a href="">Edit</a> </td>
                 <td><a href="">Delete</a> </td>
             </tr>
