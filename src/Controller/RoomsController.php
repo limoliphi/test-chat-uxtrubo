@@ -10,12 +10,20 @@ use Symfony\Component\Routing\Annotation\Route;
 class RoomsController extends AbstractController
 {
     /**
-     * @Route("/rooms", name="rooms")
+     * @Route("/rooms", name="app_rooms_index", methods="GET")
      */
     public function index(RoomRepository $roomRepository): Response
     {
         $rooms = $roomRepository->findAll();
 
         return $this->render('rooms/index.html.twig', compact('rooms'));
+    }
+
+    /**
+     * @Route("/rooms/new", name="app_rooms_new", methods={"GET", "POST"})
+     */
+    public function new(): Response
+    {
+        return $this->render('rooms/new.html.twig');
     }
 }
