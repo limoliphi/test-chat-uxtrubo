@@ -52,7 +52,7 @@ class RoomsController extends AbstractController
     /**
      * @Route("/rooms/{id<[0-9]+>}", name="app_rooms_show", methods="GET")
      */
-    public function show(Room $room)
+    public function show(Room $room): Response
     {
         return $this->render('rooms/show.html.twig', compact('room'));
     }
@@ -60,7 +60,7 @@ class RoomsController extends AbstractController
     /**
      * @Route("/rooms/{id<[0-9]+>}/edit", name="app_rooms_edit", methods="GET|PUT")
      */
-    public function edit(Room $room, EntityManagerInterface $em, Request $request)
+    public function edit(Room $room, EntityManagerInterface $em, Request $request): Response
     {
         $form = $this->createForm(RoomType::class, $room, [
             'method' => 'PUT'
@@ -81,6 +81,22 @@ class RoomsController extends AbstractController
             'room' => $room,
             'form' => $form->createView()
         ]);
+
+    }
+
+    /**
+     * @Route("/rooms/{id<[0-9]+>}", name="app_rooms_delete", methods="DELETE")
+     */
+    public function delete(Room $room, EntityManagerInterface $em, Request $request): Response
+    {
+        if ($this->isCsrfTokenValid('rooms_deletion_' . $room->getId(), $request->request->get('csrf_token'))) {
+            $em->remove($room);
+            $em->flush();
+        }
+
+        $this->addFlash('success', 'Room was successfully deleted');
+
+        return $this->redirectToRoute('app_rooms_index');
 
     }
 }

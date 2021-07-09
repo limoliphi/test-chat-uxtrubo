@@ -21,7 +21,14 @@
                 <td>{{ room.name }}</td>
                 <td><a href="{{ path('app_rooms_show', {'id': room.id}) }}">Show</a> </td>
                 <td><a href="{{ path('app_rooms_edit', {'id': room.id}) }}">Edit</a> </td>
-                <td><a href="">Delete</a> </td>
+                <td>
+                    <a href="#" onclick="event.preventDefault(); confirm('Are you sur ?') && document.querySelector('#js-room-deletion-form-{{ room.id }}').submit();">Delete</a>
+
+                    <form id="js-room-deletion-form-{{ room.id }}" method="POST" action="{{ path('app_rooms_delete', {'id': room.id}) }}" style="display: none">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token('rooms_deletion_' ~ room.id) }}">
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
