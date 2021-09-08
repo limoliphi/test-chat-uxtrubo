@@ -10,6 +10,12 @@
         <a href="{{ path('app_rooms_index') }}">Back</a>
     </p>
 
+    {% for message in room.messages %}
+        <div>
+            <p>{{ message.createdAt|date('d M h:i') }} : {{ message.content }}</p>
+        </div>
+    {% endfor %}
+
     <p>
         <a href="{{ path('app_messages_new', {'room': room.id}) }}">New message</a>
     </p>
