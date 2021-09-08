@@ -13,9 +13,6 @@ class MessageType extends AbstractType
     {
         $builder
             ->add('content')
-            ->add('createdAt')
-            ->add('updatedAt')
-            ->add('room')
         ;
     }
 
