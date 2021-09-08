@@ -1,0 +1,9 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title 'New Message' %}
+
+{% block body %}
+    <h1>New Message</h1>
+
+    <p><a href="{{ path('app_rooms_show', {'id': room.id}) }}">Back</a></p>
+{% endblock %}
