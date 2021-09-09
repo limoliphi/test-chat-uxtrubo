@@ -20,7 +20,7 @@ class RoomsController extends AbstractController
     {
         $rooms = $roomRepository->findAll();
 
-        return $this->render('rooms/new.html.twig', compact('rooms'));
+        return $this->render('rooms/index.html.twig', compact('rooms'));
     }
 
     /**
