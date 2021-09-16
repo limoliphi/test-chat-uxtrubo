@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Timestampable;
 use App\Repository\MessageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -13,6 +14,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Message
 {
+    use Timestampable;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -25,16 +28,6 @@ class Message
      * @Assert\NotBlank
      */
     private $content;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $updatedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=Room::class, inversedBy="messages")
@@ -57,43 +50,6 @@ class Message
         $this->content = $content;
 
         return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
-    public function updateTimestamps(): void
-    {
-        if ($this->getCreatedAt() === null) {
-            $this->setCreatedAt(new \DateTimeImmutable);
-        }
-
-        $this->setUpdatedAt(new \DateTimeImmutable);
     }
 
     public function getRoom(): ?Room

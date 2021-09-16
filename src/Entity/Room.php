@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Timestampable;
 use App\Repository\RoomRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -15,6 +16,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Room
 {
+    use Timestampable;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -28,16 +31,6 @@ class Room
      * @Assert\Length(min=3, minMessage="Name is too short !")
      */
     private $name;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $updatedAt;
 
     /**
      * @ORM\OneToMany(targetEntity=Message::class, mappedBy="room", orphanRemoval=true)
@@ -64,43 +57,6 @@ class Room
         $this->name = $name;
 
         return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
-    public function updateTimestamps(): void
-    {
-        if ($this->getCreatedAt() === null) {
-            $this->setCreatedAt(new \DateTimeImmutable);
-        }
-
-        $this->setUpdatedAt(new \DateTimeImmutable);
     }
 
     /**

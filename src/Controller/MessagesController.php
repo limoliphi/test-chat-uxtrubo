@@ -14,9 +14,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class MessagesController extends AbstractController
 {
     /**
-     * @Route("/rooms/{room}/messages/new", name="app_messages_new", methods={"GET", "POST"})
+     * @Route("/rooms/{room<[0-9]+>}/messages/new", name="app_messages_new", methods={"GET", "POST"})
      */
-    public function index(Room $room, Request $request, EntityManagerInterface $em): Response
+    public function new(Room $room, Request $request, EntityManagerInterface $em): Response
     {
         $message = New Message;
 
@@ -33,9 +33,9 @@ class MessagesController extends AbstractController
             return $this->redirectToRoute('app_rooms_show', ['id' => $room->getId()]);
         }
 
-        return $this->render('messages/new.html.twig', [
+        return $this->renderForm('messages/new.html.twig', [
             'room' => $room,
-            'form' => $form->createView()
+            'form' => $form
         ]);
     }
 }

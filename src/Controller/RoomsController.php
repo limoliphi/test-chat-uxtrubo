@@ -44,8 +44,8 @@ class RoomsController extends AbstractController
             return $this->redirectToRoute('app_rooms_show', ['id' => $room->getId()]);
         }
 
-        return $this->render('rooms/new.html.twig', [
-            'form' => $form->createView()
+        return $this->renderForm('rooms/new.html.twig', [
+            'form' => $form
         ]);
     }
 
@@ -77,9 +77,9 @@ class RoomsController extends AbstractController
             return $this->redirectToRoute('app_rooms_show', ['id' => $room->getId()]);
         }
 
-        return $this->render('rooms/edit.html.twig', [
+        return $this->renderForm('rooms/edit.html.twig', [
             'room' => $room,
-            'form' => $form->createView()
+            'form' => $form
         ]);
 
     }
