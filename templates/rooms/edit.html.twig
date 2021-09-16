@@ -1,0 +1,11 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title 'Edit Room' ~ room.name %}
+
+{% block body %}
+    <h1>Edit Room {{ room.name }}</h1>
+
+    {{ include('rooms/_form.html.twig', {'submit_button_label': 'Update Room'}) }}
+
+    <p><a href="{{ path('app_rooms_show', {'id': room.id}) }}">Back</a></p>
+{% endblock %}

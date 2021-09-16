@@ -1,20 +1,40 @@
-{% extends 'base.html.twig' %}
+{% extends 'layouts/base.html.twig' %}
 
-{% block title %}Hello RoomsController!{% endblock %}
+{% block title 'Rooms' %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <h1>{{ pluralize(rooms|length, 'Room') }}</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    {% if rooms is not empty %}
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for room in rooms %}
+            <tr>
+                <td>{{ room.name }}</td>
+                <td><a href="{{ path('app_rooms_show', {'id': room.id}) }}">Show</a> </td>
+                <td><a href="{{ path('app_rooms_edit', {'id': room.id}) }}">Edit</a> </td>
+                <td>
+                    <a href="#" onclick="event.preventDefault(); confirm('Are you sur ?') && document.querySelector('#js-room-deletion-form-{{ room.id }}').submit();">Delete</a>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/lilian/SymfonyCourse/symfony-ux-turbo/test-turbo-chat/src/Controller/RoomsController.php'|file_link(0) }}">src/Controller/RoomsController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/lilian/SymfonyCourse/symfony-ux-turbo/test-turbo-chat/templates/rooms/index.html.twig'|file_link(0) }}">templates/rooms/index.html.twig</a></code></li>
-    </ul>
-</div>
+                    <form id="js-room-deletion-form-{{ room.id }}" method="POST" action="{{ path('app_rooms_delete', {'id': room.id}) }}" style="display: none">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token('rooms_deletion_' ~ room.id) }}">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+    <p><a href="{{ path('app_rooms_new') }}">New room</a></p>
+
 {% endblock %}
