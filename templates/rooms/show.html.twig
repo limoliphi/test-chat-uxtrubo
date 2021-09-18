@@ -8,7 +8,8 @@
 
         <p>
             <a href="{{ path('app_rooms_edit', {'id': room.id}) }}">Edit</a>
-            <a href="{{ path('app_rooms_index') }}">Back</a>
+            {# permet de sortir du turbo-frame pour retourner sur la page complète d'index des rooms #}
+            <a href="{{ path('app_rooms_index') }}" data-turbo-frame="_top">Back</a>
         </p>
     </turbo-frame>
 
