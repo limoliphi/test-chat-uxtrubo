@@ -8,14 +8,13 @@
 
         <p>
             <a href="{{ path('app_rooms_edit', {'id': room.id}) }}">Edit</a>
-            {# permet de sortir du turbo-frame pour retourner sur la page complète d'index des rooms #}
             <a href="{{ path('app_rooms_index') }}" data-turbo-frame="_top">Back</a>
         </p>
     </turbo-frame>
 
     {% for message in room.messages %}
         <div>
-            <p>{{ message.createdAt|date('d M h:i') }} : {{ message.content }}</p>
+            <p>{{ message.createdAt|date('d/m/Y H:i:s') }} : {{ message.content }}</p>
         </div>
     {% endfor %}
 
