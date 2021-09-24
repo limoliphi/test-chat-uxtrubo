@@ -18,7 +18,5 @@
         </div>
     {% endfor %}
 
-    <p>
-        <a href="{{ path('app_messages_new', {'room': room.id}) }}">New message</a>
-    </p>
+    <turbo-frame id="new_message" src="{{ path('app_messages_new', {'room': room.id}) }}"></turbo-frame>
 {% endblock %}

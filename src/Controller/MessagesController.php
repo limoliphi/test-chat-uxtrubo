@@ -20,7 +20,10 @@ class MessagesController extends AbstractController
     {
         $message = New Message;
 
-        $form = $this->createForm(MessageType::class, $message);
+        $form = $this->createForm(MessageType::class, $message, [
+            //permet de passer la room qui nous intéresse lorsque l'on veut laisser un message
+            'action' => $this->generateUrl('app_messages_new', ['room' => $room->getId()])
+        ]);
 
         $form->handleRequest($request);
 
