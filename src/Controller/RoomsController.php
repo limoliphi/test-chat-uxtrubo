@@ -63,7 +63,10 @@ class RoomsController extends AbstractController
     public function edit(Room $room, EntityManagerInterface $em, Request $request): Response
     {
         $form = $this->createForm(RoomType::class, $room, [
-            'method' => 'PUT'
+            'method' => 'PUT',
+            //permet d'ajouter un attribut action au moment de la soumission du formulaire
+            //avec turbo-frame, sinon on reste sur PUT et pas d'action donc une erreur
+            'action' => $this->generateUrl('app_rooms_edit', ['id' => $room->getId()])
         ]);
 
         $form->handleRequest($request);

@@ -3,20 +3,20 @@
 {% block title 'Room #' ~ room.id %}
 
 {% block body %}
-    <h1>Name : {{ room.name }}</h1>
+    <turbo-frame id="room">
+        <h1>Name : {{ room.name }}</h1>
 
-    <p>
-        <a href="{{ path('app_rooms_edit', {'id': room.id}) }}">Edit</a>
-        <a href="{{ path('app_rooms_index') }}">Back</a>
-    </p>
+        <p>
+            <a href="{{ path('app_rooms_edit', {'id': room.id}) }}">Edit</a>
+            <a href="{{ path('app_rooms_index') }}" data-turbo-frame="_top">Back</a>
+        </p>
+    </turbo-frame>
 
     {% for message in room.messages %}
         <div>
-            <p>{{ message.createdAt|date('d M h:i') }} : {{ message.content }}</p>
+            <p>{{ message.createdAt|date('d/m/Y H:i:s') }} : {{ message.content }}</p>
         </div>
     {% endfor %}
 
-    <p>
-        <a href="{{ path('app_messages_new', {'room': room.id}) }}">New message</a>
-    </p>
+    <turbo-frame id="new_message" src="{{ path('app_messages_new', {'room': room.id}) }}" target="_top" autoscroll></turbo-frame>
 {% endblock %}
