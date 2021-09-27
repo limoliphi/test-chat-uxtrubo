@@ -18,5 +18,5 @@
         </div>
     {% endfor %}
 
-    <turbo-frame id="new_message" src="{{ path('app_messages_new', {'room': room.id}) }}" target="_top"></turbo-frame>
+    <turbo-frame id="new_message" src="{{ path('app_messages_new', {'room': room.id}) }}" target="_top" autoscroll></turbo-frame>
 {% endblock %}
